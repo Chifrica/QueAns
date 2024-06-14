@@ -154,6 +154,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 25,
     fontWeight: 'bold',
+    color: '#FFFFFF',
+    backgroundColor: '#10CA0C',
+    elevation: 2
   },
   questionContainer: {
     marginBottom: 20,
