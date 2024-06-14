@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Alert, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
+import { Alert, Image, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
 
 
 const Login = ({navigation}) => {
@@ -10,14 +10,14 @@ const Login = ({navigation}) => {
 
     function handleLogin() {
         if(email && password == 'admin'){
-            navigation.navigate('Signup');
+            navigation.navigate('MainApp');
         } else {
             Alert.alert('Invailed credentials');
         }
     }
 
     return(
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <Image 
                 source={require('../../assets/QueAnsIcon.png')}
                 style={styles.img}
@@ -61,7 +61,7 @@ const Login = ({navigation}) => {
                     </TouchableOpacity>
                 </Text>
             </View>
-        </View>
+        </ScrollView>
     )
 }
 
@@ -74,8 +74,8 @@ const styles = StyleSheet.create({
     },
 
     img: {
-        alignItems: 'center',
-        padding: 30
+        alignSelf: 'center',
+        top: '30%'
     },
 
     headerText: {

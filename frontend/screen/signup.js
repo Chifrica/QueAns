@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
+import { Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
 
 const Signup = ({navigation}) => {
     const [ fullName, onChangeFullName ] = useState('');
@@ -9,6 +9,11 @@ const Signup = ({navigation}) => {
 
     return (
         <ScrollView style={styles.container}>
+            <Image
+                source={require('../../assets/QueAnsIcon.png')}
+                style={styles.img}
+            />
+
             <View style={styles.sub_container}>
                 <Text style={styles.headerText}>Create an account</Text>
                 <Text style={styles.sub_headerText}>Enter your details to sign up for this app</Text>
@@ -74,8 +79,13 @@ const styles = StyleSheet.create({
         // backgroundColor: 'gray'
     },
 
+    img: {
+        alignSelf: 'center',
+        top: '13%'
+    },
+
     sub_container: {
-        marginTop: '30%',
+        marginTop: '25%',
         marginLeft: 30,
         marginRight: 30,
         paddingTop: '10%',
