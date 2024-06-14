@@ -128,13 +128,6 @@ const English = () => {
           </TouchableOpacity>
         </View>
       </ScrollView>
-      {/* {showSubmitButton && !submitted && (
-        <View style={styles.v_btn}>
-          <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-          <Text style={styles.submitButtonText}>Submit</Text>
-          </TouchableOpacity>
-        </View>
-      )} */}
     </View>
   );
 };
