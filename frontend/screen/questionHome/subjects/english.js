@@ -5,7 +5,7 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'rea
 const questions = [
   {
     question: '1. What is the capital of France?',
-    options: ['London', 'Paris', 'Berlin', 'Rome'],
+    options: ['London', 'Paris', 'Berlin', 'Rome' ],
     answer: 1,
   },
   {
