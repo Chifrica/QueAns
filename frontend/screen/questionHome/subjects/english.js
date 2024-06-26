@@ -30,14 +30,38 @@ const questions = [
   },
 ];
 
+// Utility function to shuffle an array
+const shuffleArray = (array) => {
+  let shuffledArray = array.slice();
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+  }
+  return shuffledArray;
+};
+
 const English = () => {
-  const [currentQuestions, setCurrentQuestions] = useState(questions.slice(0, 5));
+  const [currentQuestions, setCurrentQuestions] = useState([]);
   const [selectedAnswers, setSelectedAnswers] = useState(new Array(5).fill(null));
   const [score, setScore] = useState(0);
   const [submitted, setSubmitted] = useState(false);
   const [showSubmitButton, setShowSubmitButton] = useState(false);
   const scrollViewRef = useRef();
   const navigation = useNavigation();
+
+  useEffect(() => {
+    // Initialize the questions with shuffled options
+    const shuffledQuestions = questions.map((question) => {
+      const shuffledOptions = shuffleArray(question.options);
+      const answerIndex = shuffledOptions.indexOf(question.options[question.answer]);
+      return {
+        ...question,
+        options: shuffledOptions,
+        answer: answerIndex,
+      };
+    });
+    setCurrentQuestions(shuffledQuestions.slice(0, 5));
+  }, []);
 
   useEffect(() => {
     if (submitted) {
@@ -56,7 +80,7 @@ const English = () => {
   };
 
   const handleOptionPress = (questionIndex, optionIndex) => {
-    setSelectedAnswers(prevAnswers => {
+    setSelectedAnswers((prevAnswers) => {
       const updatedAnswers = [...prevAnswers];
       updatedAnswers[questionIndex] = optionIndex;
       return updatedAnswers;
@@ -64,9 +88,9 @@ const English = () => {
   };
 
   const handleSubmit = () => {
-    if (selectedAnswers.every(answer => answer !== null)) {
+    if (selectedAnswers.every((answer) => answer !== null)) {
       setSubmitted(true);
-      navigation.navigate('Correct');
+      // navigation.navigate('Correct');
     } else {
       Alert.alert('Please select an answer for all questions before submitting.');
     }
@@ -76,7 +100,16 @@ const English = () => {
     setSelectedAnswers(new Array(5).fill(null));
     setScore(0);
     setSubmitted(false);
-    setCurrentQuestions(questions.slice(0, 5));
+    const shuffledQuestions = questions.map((question) => {
+      const shuffledOptions = shuffleArray(question.options);
+      const answerIndex = shuffledOptions.indexOf(question.options[question.answer]);
+      return {
+        ...question,
+        options: shuffledOptions,
+        answer: answerIndex,
+      };
+    });
+    setCurrentQuestions(shuffledQuestions.slice(0, 5));
   };
 
   const handleScroll = ({ nativeEvent }) => {
@@ -95,7 +128,7 @@ const English = () => {
               <View style={[styles.radioIcon, { borderColor: selectedAnswers[questionIndex] === optionIndex ? '#10CA0C' : 'black' }]}>
                 {selectedAnswers[questionIndex] === optionIndex && <View style={styles.radioIconSelected} />}
               </View>
-              <Text style={styles.eoptionText}>{option}</Text>
+              <Text style={styles.optionText}>{option}</Text>
             </View>
           </TouchableOpacity>
         ))}
@@ -114,7 +147,7 @@ const English = () => {
 
   return (
     <View style={styles.container}>
-       <Text style={styles.eng}> English Language</Text>
+      <Text style={styles.eng}> English Language</Text>
       <ScrollView
         style={styles.scrollView}
         onScroll={handleScroll}
@@ -122,11 +155,13 @@ const English = () => {
         showsVerticalScrollIndicator={false}
       >
         {submitted ? renderResults() : renderQuestions()}
-        <View style={styles.v_btn}>
-          <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-          <Text style={styles.submitButtonText}>SUBMIT</Text>
-          </TouchableOpacity>
-        </View>
+        {showSubmitButton && !submitted && (
+          <View style={styles.v_btn}>
+            <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+              <Text style={styles.submitButtonText}>SUBMIT</Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </ScrollView>
     </View>
   );
@@ -149,7 +184,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#FFFFFF',
     backgroundColor: '#10CA0C',
-    elevation: 2
+    elevation: 2,
   },
   questionContainer: {
     marginBottom: 20,
@@ -198,7 +233,7 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
     borderRadius: 5,
-    width: "80%"
+    width: "80%",
   },
   submitButtonText: {
     color: '#FFFFFF',

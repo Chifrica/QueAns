@@ -6,6 +6,9 @@ import Signup from './frontend/screen/signup';
 import BottomNavigation from './frontend/navigation/bottomTabNavigation';
 import English from './frontend/screen/questionHome/subjects/english';
 import Correct from './frontend/screen/questionHome/correct';
+import Math from './frontend/screen/questionHome/subjects/maths';
+import Chemistry from './frontend/screen/questionHome/subjects/chemistry';
+import Physics from './frontend/screen/questionHome/subjects/physics';
 
 
 
@@ -22,7 +25,7 @@ export default function App() {
           component={Login} 
           options={
             {headerShown: false}
-            }
+          }
         />
 
         <Stack.Screen 
@@ -30,7 +33,7 @@ export default function App() {
           component={Signup} 
           options={
             {headerShown: false}
-            }
+          }
         />
 
         <Stack.Screen 
@@ -52,6 +55,30 @@ export default function App() {
         <Stack.Screen 
           name='Correct'
           component={Correct}
+          options={
+            {headerShown: false}
+          }
+        />
+
+        <Stack.Screen 
+          name='MathQuestion'
+          component={Math}
+          options={
+            {headerShown: false}
+          }
+        />
+
+        <Stack.Screen 
+          name='ChemistryQuestion'
+          component={Chemistry}
+          options={
+            {headerShown: false}
+          }
+        />
+
+        <Stack.Screen 
+          name='PhysicsQuestion'
+          component={Physics}
           options={
             {headerShown: false}
           }

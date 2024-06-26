@@ -8,24 +8,34 @@ import courses from '../../../backend/data/courses.json';
 import { useNavigation } from '@react-navigation/native';
 
 const QA = () => {
-    const [categoryValue, setCategoryValue] = useState(null);
-    const [subOrCourseValue, setSubOrCourseValue] = useState(null);
-    const [isFocus, setIsFocus] = useState(false);
-    const navigation = useNavigation();
+    const [categoryValue, setCategoryValue] = useState(null); // State to hold the selected category value
+    const [subOrCourseValue, setSubOrCourseValue] = useState(null); // State to hold the selected subject or course value
+    const [isFocus, setIsFocus] = useState(false); // State to manage focus state of dropdowns
+    const navigation = useNavigation(); // Hook for navigation
 
+    // Handle change in category selection
     const handleCategoryChange = (item) => {
-        setCategoryValue(item.value);
-        setSubOrCourseValue(null); // Reset the second dropdown when category changes
+        setCategoryValue(item.value); // Set the selected category value
+        setSubOrCourseValue(null); // Reset the subject or course value when category changes
     };
 
+    // Handle the submit button press
     const handleSelection = () => {
+        // Navigate to different screens based on selected category and subject/course
         if (categoryValue === '1' && subOrCourseValue === '1') {
             navigation.navigate('EnglishQuestion');
+        } else if (categoryValue === '2' && subOrCourseValue === '2') {
+            navigation.navigate('MathQuestion');
+        } else if (categoryValue === '3' && subOrCourseValue === '3') {
+            navigation.navigate('ChemistryQuestion');
+        } else if (categoryValue === '4' && subOrCourseValue === '4') {
+            navigation.navigate('PhysicsQuestion');
         } else {
-            Alert.alert('Invalid selection');
+            Alert.alert('Invalid selection'); // Show alert if selection is invalid
         }      
-    }
+    };
 
+    // Render the second dropdown based on selected category
     const renderSecondDropdown = () => {
         if (categoryValue === '1') {
             return (
@@ -37,7 +47,7 @@ const QA = () => {
                         selectedTextStyle={styles.selectedTextStyle}
                         inputSearchStyle={styles.inputSearchStyle}
                         iconStyle={styles.iconStyle}
-                        data={subject}
+                        data={subject} // Data for subjects
                         search
                         maxHeight={300}
                         labelField="label"
@@ -48,8 +58,8 @@ const QA = () => {
                         onFocus={() => setIsFocus(true)}
                         onBlur={() => setIsFocus(false)}
                         onChange={item => {
-                            setSubOrCourseValue(item.value);
-                            setIsFocus(false);
+                            setSubOrCourseValue(item.value); // Set the selected subject value
+                            setIsFocus(false); // Reset focus state
                         }}
                         renderLeftIcon={() => (
                             <AntDesign
@@ -72,7 +82,7 @@ const QA = () => {
                         selectedTextStyle={styles.selectedTextStyle}
                         inputSearchStyle={styles.inputSearchStyle}
                         iconStyle={styles.iconStyle}
-                        data={courses}
+                        data={courses} // Data for courses
                         search
                         maxHeight={300}
                         labelField="label"
@@ -83,8 +93,8 @@ const QA = () => {
                         onFocus={() => setIsFocus(true)}
                         onBlur={() => setIsFocus(false)}
                         onChange={item => {
-                            setSubOrCourseValue(item.value);
-                            setIsFocus(false);
+                            setSubOrCourseValue(item.value); // Set the selected course value
+                            setIsFocus(false); // Reset focus state
                         }}
                         renderLeftIcon={() => (
                             <AntDesign
@@ -98,7 +108,7 @@ const QA = () => {
                 </View>
             );
         }
-        return null;
+        return null; // Return null if no category is selected
     };
 
     return (
@@ -117,7 +127,7 @@ const QA = () => {
                     selectedTextStyle={styles.selectedTextStyle}
                     inputSearchStyle={styles.inputSearchStyle}
                     iconStyle={styles.iconStyle}
-                    data={category}
+                    data={category} // Data for categories
                     search
                     maxHeight={300}
                     labelField="label"
@@ -127,7 +137,7 @@ const QA = () => {
                     value={categoryValue}
                     onFocus={() => setIsFocus(true)}
                     onBlur={() => setIsFocus(false)}
-                    onChange={item => handleCategoryChange(item)}
+                    onChange={item => handleCategoryChange(item)} // Handle category change
                     renderLeftIcon={() => (
                         <AntDesign
                             style={styles.icon}
@@ -141,6 +151,7 @@ const QA = () => {
                 {/* Render second dropdown based on category selection */}
                 {renderSecondDropdown()}
 
+                {/* Submit button */}
                 <TouchableOpacity onPress={handleSelection} style={styles.touchable}>
                     <Text style={styles.touchable_text}>SUBMIT</Text>
                 </TouchableOpacity>
@@ -197,7 +208,6 @@ const styles = StyleSheet.create({
         height: 40,
         fontSize: 16,
     },
-
     touchable: {
         borderRadius: 100,
         paddingTop: 8,
@@ -206,7 +216,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         backgroundColor: '#10CA0C'
     },
-
     touchable_text: {
         color: '#FFFFFF',
         fontWeight: 'bold',

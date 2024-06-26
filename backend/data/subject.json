@@ -1,4 +1,6 @@
 [
     { "label": "English Language", "value": "1" },
-    { "label": "Mathematics", "value": "2" }
+    { "label": "Mathematics", "value": "2" },
+    { "label": "Chemistry", "value": "3 "},
+    { "label": "Physics", "value": "4"}
 ]
